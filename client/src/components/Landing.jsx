@@ -3,7 +3,7 @@ import AuthForm from './AuthForm';
 import { useNavigate } from 'react-router-dom';
 
 export default function Landing() {
-  const [mode, setMode] = useState('signup'); // or 'login'
+  const [mode, setMode] = useState('signup');
   const navigate = useNavigate();
 
   const onSuccess = (user) => {
@@ -11,23 +11,23 @@ export default function Landing() {
   };
 
   return (
-    <div className="container">
-      <div className="card">
-        <div className="header">
-          <div className="brand">Assignment Auth</div>
-          <div className="muted">Smooth UI — MERN + JWT</div>
-        </div>
-
-        <div style={{marginTop:18}}>
-          <h2>{mode === 'signup' ? 'Create an account' : 'Welcome back'}</h2>
-          <p className="muted">{mode === 'signup' ? 'Sign up to finish the assignment' : 'Sign in to view dashboard'}</p>
-        </div>
+    <div className="auth-root">
+      <div className="auth-wrapper">
+        <div className="auth-icon">🧑‍💻</div>
+        <h1 className="auth-heading">{mode === 'signup' ? 'Create an Account' : 'Welcome Back'}</h1>
+        <p className="auth-sub">
+          {mode === 'signup'
+            ? 'Made by Jagadesvar'
+            : 'Made by Jagadesvar'}
+        </p>
 
         <AuthForm mode={mode} onSuccess={onSuccess} />
 
-        <div className="toggle">
-          <button className="link-btn" onClick={()=>setMode(mode === 'signup' ? 'login' : 'signup')}>
-            {mode === 'signup' ? 'Already have an account? Sign in' : "Don't have an account? Create one"}
+        <div className="auth-switch">
+          <button className="link-btn" onClick={() => setMode(mode === 'signup' ? 'login' : 'signup')}>
+            {mode === 'signup'
+              ? 'Already have an account? Sign in'
+              : "Don't have an account? Create one"}
           </button>
         </div>
       </div>
