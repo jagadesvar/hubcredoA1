@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const path = require('path');
 
 const authRoutes = require('./routes/auth');
 
@@ -20,6 +21,17 @@ app.use(cors({
 }));
 
 app.use('/api/auth', authRoutes);
+
+const publicPath = path.join(__dirname, 'public');
+app.use(express.static(publicPath));
+
+app.get('*', (req, res) => {
+  if (req.originalUrl.startsWith('/api')) {
+    return res.status(404).json({ message: "API route not found" });
+  }
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
 
 const PORT = process.env.PORT || 5000;
 mongoose.connect(process.env.MONGO_URI)
